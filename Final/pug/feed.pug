@@ -1,0 +1,17 @@
+doctype html
+html
+    head
+        style.
+            .pokemons{
+                color:white;
+                font-size:36px;
+                background-color:green ;
+            } 
+    body(style="background-color:green") 
+       h1 Feed 
+      
+       each i in {posts}
+        each j in i
+            //p=j
+            a(href="http://localhost:8000/api/blog/feed/"+j._id)=j.post+"-"+j.people[0].name
+            br
