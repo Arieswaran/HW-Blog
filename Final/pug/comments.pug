@@ -3,25 +3,40 @@ doctype html
 html
     head
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
-    body(style="background-color:green") 
-       a(href="http://localhost:8000/api/blog/feed").btn-default back 
-       div.col-sm-9
-        h2 
-            small Comments
-        br 
-        each i in {posts} 
-            each j in i
+        style. 
+            .pos{
+              
+                position:fixed;
                 
-                .media
-                    .media-left 
-                        img.media-object(src='/../../public/img/avatar.png',style='width:60px',alt='user-img')
-                    .media-body 
-                        h4.media-heading=j.username
-                        p=j.comment
-                br
-                br
-            else 
-                p  No comments here...
-        form(action="./"+{post_id}.post_id+"/comment" method="post")
-            textarea(name="comment")
-            input(type="submit",value="comment")
+            }
+
+    body(style="background-color:skyblue") 
+       a(href="http://localhost:8000/api/blog/feed").btn-default back 
+       center
+        div.col-sm-9
+            h2 
+                small Comments
+            br
+            -var no_comments=false  
+            each i in {posts} 
+                each j in i
+                    
+                    .media
+                        .media-left 
+                            img.media-object(src='/../../public/img/avatar.png',style='width:60px',alt='user-img')
+                        .media-left
+                            h4.media-heading=j.username
+                            p.pos=j.comment
+                    br
+                    br
+                else
+                    -no_comments=true 
+                    p  
+                    form(action="./"+{post_id}.post_id+"/comment" method="post")
+                        input(name="post",type="text",placeholder="Be the first one to comment")
+                        input(type="submit",value="comment")
+            if !no_comments
+                form(action="./"+{post_id}.post_id+"/comment" method="post")
+                input(name="post",type="text",placeholder="comment here..")
+                input(type="submit",value="comment")
+            

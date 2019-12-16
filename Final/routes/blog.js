@@ -65,7 +65,7 @@ router.post('/post',middleware.checkToken, async (req, res) =>{
         });
     console.log(data);
     await data.save();
-    res.send("successfully posted");
+    res.redirect('http://localhost:8000/api/blog/feed/');
     
 
 });
