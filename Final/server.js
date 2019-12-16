@@ -50,7 +50,7 @@ function main(){
     app.use('/api/users', users);
     app.use('/api/auth', auth);
     app.use('/api/blog', blog);
-    app.get("/index",function(req,res){
+    app.get("/",function(req,res){
         res.send(pug.renderFile('pug/login.pug'));
     });
     app.listen(port,()=>console.log('Server is listening on port: ',port));

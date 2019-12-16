@@ -1,17 +1,18 @@
 doctype html
 html
     head
-        style.
-            .pokemons{
-                color:white;
-                font-size:36px;
-                background-color:green ;
-            } 
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
     body(style="background-color:green") 
        h1 Feed 
       
        each i in {posts}
         each j in i
             //p=j
-            a(href="http://localhost:8000/api/blog/feed/"+j._id)=j.post+"-"+j.people[0].name
+            .media
+                .media-left 
+                    img.media-object(src='/../../img/avatar.png',style='width:60px')
+                .media-body 
+                    h4.media-heading= j.people[0].name 
+                    p 
+                        a(href="http://localhost:8000/api/blog/feed/"+j._id)=j.post
             br

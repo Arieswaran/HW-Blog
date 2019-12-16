@@ -4,6 +4,9 @@ const express = require('express');
 let config=require('../config.js');
 const router = express.Router();
 let jwt=require('jsonwebtoken');
+
+
+
 router.post('/signup', async (req, res) => {
     // First Validate The Request
     const { error } = validate(req.body);
@@ -25,7 +28,27 @@ router.post('/signup', async (req, res) => {
         });
         
         await user.save();
-        res.send("Succesful Signup");
+        let user_details = await User.findOne({ email: req.body.email });
+        let mockuser_id=user_details._id;
+
+        let token=jwt.sign({user_id:mockuser_id},
+            config.secret,{
+                expiresIn:'24h'
+            }
+        );
+
+        
+            // no: set a new cookie
+            res.cookie('token',token, { maxAge: 900000, httpOnly: true });
+            console.log('cookie created successfully');
+            /*
+        res.json({
+            success:true,
+            message:"Authentication successful",
+            token:token
+        });
+        */
+       res.redirect("http://localhost:8000/api/blog/feed");
     }
 });
 router.post('/login',async (req,res) => {
@@ -58,12 +81,14 @@ let mockPassword=user_details.password;
                     // no: set a new cookie
                     res.cookie('token',token, { maxAge: 900000, httpOnly: true });
                     console.log('cookie created successfully');
-
+                    /*
                 res.json({
                     success:true,
                     message:"Authentication successful",
                     token:token
                 });
+                */
+               res.redirect("http://localhost:8000/api/blog/feed");
                 console.log(jwt.decode(token));
             }
             else{
