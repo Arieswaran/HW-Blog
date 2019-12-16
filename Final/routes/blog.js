@@ -87,16 +87,54 @@ router.post('/feed/:id/comment',middleware.checkToken, async (req, res) =>{
         });
         console.log(data);
     await data.save();            
-    res.send("Successfully commented");
+    res.redirect('http://localhost:8000/api/blog/feed/'+post_id);
    });
     
 
 
 router.get('/feed/:id',middleware.checkToken, async (req, res) =>{
     var post_id=req.params.id;
-    console.log("post id",post_id);
+    console.log("comments...",post_id);
     var result=await comment.find({post_id:post_id});
-    res.send(pug.renderFile("pug/comments.pug",{posts:result}));
+    console.log(result);
+    var arr=[];
+    var comments=result;
+/*
+    for(var i=0;i<result.length;i++)
+    {
+
+    }
+*/
+
+    var something=await result.forEach(async element=>{
+        var temp_userid=element.user_id;
+        console.log("0",temp_userid);
+        var temp_user=await User.find({_id:temp_userid});
+        var temp_username=temp_user[0].name;
+        console.log("1",temp_user);
+        console.log("2",temp_username);
+        var temp_arr={
+            comment:element.comment,
+            username:temp_username
+        };
+        arr.push(temp_arr);
+        console.log("in arr",arr);
+        if (result.length==arr.length)
+        res.send(pug.renderFile("pug/comments.pug",{posts:arr,post_id:post_id}));
+
+        //res.send(pug.renderFile("pug/comments.pug",{posts:arr}));
+
+
+    });
+    if (result.length==0)
+    res.send(pug.renderFile("pug/comments.pug",{posts:arr,post_id:post_id}));
+
+    //check here
+   
+    console.log("arr",arr);
+//    
+
+    //console.log("peoplessssss",a[0].people);
 });
 
 module.exports = router;

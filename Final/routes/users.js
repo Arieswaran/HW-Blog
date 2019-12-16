@@ -79,7 +79,7 @@ let mockPassword=user_details.password;
 
                 
                     // no: set a new cookie
-                    res.cookie('token',token, { maxAge: 900000, httpOnly: true });
+                    res.cookie('token',token, { maxAge: 900000000, httpOnly: true });
                     console.log('cookie created successfully');
                     /*
                 res.json({

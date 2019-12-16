@@ -2,17 +2,24 @@ doctype html
 html
     head
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
-    body(style="background-color:green") 
-       h1 Feed 
+    body(style="background-color:green")  
+       a(href="http://localhost:8000/").btn-default logout
+       div.col-sm-9
+
+
+        h2 
+            small Recent posts 
+        br 
       
-       each i in {posts}
-        each j in i
-            //p=j
-            .media
-                .media-left 
-                    img.media-object(src='/../../img/avatar.png',style='width:60px')
-                .media-body 
-                    h4.media-heading= j.people[0].name 
-                    p 
-                        a(href="http://localhost:8000/api/blog/feed/"+j._id)=j.post
-            br
+        each i in {posts}
+            each j in i
+                //p=j
+                .media
+                    .media-left 
+                        img.media-object(src='/../../public/img/avatar.png',style='width:60px',alt='user-img')
+                    .media-body 
+                        h4.media-heading= j.people[0].name 
+                        p 
+                            a(href="http://localhost:8000/api/blog/feed/"+j._id, style="color:black")=j.post
+                br
+                br

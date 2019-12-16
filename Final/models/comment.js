@@ -9,13 +9,13 @@ const comment = mongoose.model('comments', new mongoose.Schema({
         maxlength: 50
     },
     user_id: {
-        type: Object,
+        type: mongoose.Schema.ObjectId,
         required: true,
         minlength: 2,
         maxlength: 50
     },
     post_id: {
-        type: Object,
+        type: mongoose.Schema.ObjectId,
         required: true,
         minlength: 2,
         maxlength: 50

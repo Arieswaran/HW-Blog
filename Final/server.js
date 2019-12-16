@@ -11,6 +11,7 @@ const blog = require('./routes/blog');
 const auth = require('./routes/auth');
 const router = express.Router();
 const app = express();
+const path=require('path');
 var cookieParser = require('cookie-parser')
 //connecting db
 console.log("starting DB...");
@@ -41,6 +42,7 @@ function main(){
     app.use(bodyParser.urlencoded({ //middleware
         extended:true 
     }));
+    app.use("/public", express.static(path.join(__dirname, 'public')));
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(express.json());

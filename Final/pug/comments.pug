@@ -1,15 +1,27 @@
+
 doctype html
 html
     head
-        style.
-            .pokemons{
-                color:white;
-                font-size:36px;
-                background-color:green ;
-            } 
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css')
     body(style="background-color:green") 
-       h1 Comments
-      
-       each i in {posts}
-        each j in i
-            p=j.comment
+       a(href="http://localhost:8000/api/blog/feed").btn-default back 
+       div.col-sm-9
+        h2 
+            small Comments
+        br 
+        each i in {posts} 
+            each j in i
+                
+                .media
+                    .media-left 
+                        img.media-object(src='/../../public/img/avatar.png',style='width:60px',alt='user-img')
+                    .media-body 
+                        h4.media-heading=j.username
+                        p=j.comment
+                br
+                br
+            else 
+                p  No comments here...
+        form(action="./"+{post_id}.post_id+"/comment" method="post")
+            textarea(name="comment")
+            input(type="submit",value="comment")
